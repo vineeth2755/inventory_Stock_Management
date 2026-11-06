@@ -104,3 +104,4 @@ StockMatrix does not scale down desktop elements. Instead, it alters **layout st
 1. **Touch Target Size:** Interactive buttons, selects, and links strictly respect a minimum hitbox of **44×44px**.
 2. **Active Feedback:** `active:scale-[0.98]` and `active:bg-slate-100` classes provide instant tactile visual feedback on physical mobile devices.
 3. **Zero Horizontal Layout Shift:** All containers use `min-w-0`, `max-w-full`, and `overflow-hidden` to eliminate horizontal page scrolling on 375px screens.
+

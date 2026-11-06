@@ -1,95 +1,49 @@
-# Project Documentation: Step 1 – Screen A (Inventory Overview / Dashboard)
+# Phase 1 Specification: Screen A – Inventory Overview (Dashboard)
 
-**Milestone:** Step 1 of 4 (User Journey: Morning Snapshot)  
-**Target Viewports Verified:** Desktop (1440px), Tablet (768px), Mobile (375px)  
-**Primary Color:** `#5145E5` | **Sidebar:** `#151D31` | **Main Background:** `#F5F7FB`  
-
----
-
-## 1. Overview & Objective
-Step 1 establishes the landing dashboard and persistent application frame. When starting a shift, warehouse operators and managers immediately understand:
-- Total inventory items across facilities.
-- Stock health counts: In Stock, Low Stock, and Out of Stock.
-- High-priority items requiring immediate restocking or inspection.
-
-Navigation is structured in the exact **A → B → C → D order**:
-1. **Screen A (Dashboard):** High-level KPI metrics and urgent triage.
-2. **Screen B (Inventory List):** Full searchable and filterable table catalog.
-3. **Screen C (Item Details):** In-depth inspection of stock, storage location, and movement logs.
-4. **Screen D (Add / Edit Item):** Guided form with inline validation.
+**Application:** StockMatrix (InventoryPro)  
+**Screen:** Screen A (Landing View)  
+**User Journey Role:** Morning Snapshot & Operational Triage  
+**Target Viewports:** Desktop (1440px), Tablet (768px), Mobile (375px)  
 
 ---
 
-## 2. Navigation Flow & User Journey Links
-
-To ensure clarity and eliminate confusion, the user can navigate between screens through both the sidebar and contextual page actions:
-
-### A. Sidebar Navigation (Direct Access)
-The sidebar explicitly reflects the four required assessment screens:
-- `Screen A: Dashboard`
-- `Screen B: Inventory List`
-- `Screen C: Item Details` (opens the selected item's inspection view)
-- `Screen D: Add / Edit Item` (opens the creation form)
-
-### B. Contextual In-Screen Navigation
-Within Screen A, users can directly jump to other screens:
-- **To Screen B (Catalog):**
-  - Click **"View Catalog"** in the top header.
-  - Click **"View All"** in the "Items Requiring Attention" card header.
-- **To Screen C (Item Details):**
-  - Click the **Eye icon (`👁️`)** on any urgent item row in the triage widget.
-- **To Screen D (Add/Edit Form):**
-  - Click the primary purple **"+ Add New Item"** button in the header.
-  - Click the **Pencil icon (`✏️`)** on any item row to edit that specific item.
+## 1. Overview & Business Objective
+Screen A provides warehouse operators and logistics managers with an instant high-level snapshot of total inventory volume, health distribution across categories, and high-priority items requiring emergency restocking.
 
 ---
 
-## 3. Files Created & Modified
+## 2. Component Specifications
 
-| File Path | Component / Role | Description |
-| :--- | :--- | :--- |
-| `src/data/mockInventory.js` | Data Store | Catalog of 12 enterprise inventory items with SKUs, warehouse locations, stock thresholds, and transaction movement logs. |
-| `src/context/InventoryContext.jsx` | State Engine | React Context provider managing dynamic metric calculations (`useMemo`), active screen routing, selected item tracking, and CRUD actions. |
-| `src/components/common/StatusBadge.jsx` | Atomic UI | Reusable status badge with dual visual indicators (SVG icon + text + background tone) for accessibility compliance. |
-| `src/components/common/MetricCard.jsx` | Atomic UI | Statistic KPI card with iconography, metric count, contextual label, and subtle hover elevation. |
-| `src/components/layout/Sidebar.jsx` | Layout Shell | Dark Navy persistent sidebar with brand identity, explicit A → B → C → D navigation items, and mobile drawer support. |
-| `src/components/layout/Header.jsx` | Layout Shell | Responsive top navigation bar displaying active page title, mobile toggle, and primary CTA buttons. |
-| `src/components/dashboard/StatCardsGrid.jsx` | Dashboard Molecule | 5-column responsive grid displaying Total Items, In Stock, Low Stock, Out of Stock, Needs Attention. |
-| `src/components/dashboard/CategoryChart.jsx` | Dashboard Molecule | Visual inventory distribution widget displaying category volume and multi-colored health progress bars. |
-| `src/components/dashboard/UrgentItemsWidget.jsx` | Dashboard Molecule | Triage list surfacing items below safety thresholds with direct actions to inspect (Screen C) or edit (Screen D). |
-| `src/components/dashboard/DashboardScreen.jsx` | Screen Template | Assembles the StatCardsGrid, CategoryChart, and UrgentItemsWidget into Screen A. |
-| `src/App.jsx` | Root Container | Wraps the application with `InventoryProvider` and coordinates layout responsive frames. |
+### 2.1 Summary KPI Indicators (`StatCardsGrid.jsx`)
+Strictly adheres to the five indicators specified in the assessment brief:
+1. **Total Items:** Real-time count of total registered SKUs across all warehouse facilities.
+2. **In Stock:** Count of healthy items where available quantity exceeds safety reorder thresholds.
+3. **Low Stock:** Count of items running at or below safety reorder thresholds (`availableQty <= reorderLevel`).
+4. **Out of Stock:** Count of items with zero available units (`availableQty === 0`).
+5. **Items Requiring Attention:** Combined count of low stock and out-of-stock items requiring immediate restock action.
 
----
+### 2.2 Visual Category Breakdown (`CategoryChart.jsx`)
+- Computes each category's volume share against the total catalog:
+  $$\text{Category Volume \%} = \left(\frac{\text{Items in Category}}{\text{Total Items}}\right) \times 100$$
+- Visualizes internal stock health via multi-segment horizontal progress bars:
+  - **Emerald Green:** Healthy in-stock proportion.
+  - **Amber Orange:** Low-stock threshold warning proportion.
+  - **Rose Red:** Depleted out-of-stock proportion.
 
-## 4. Component Architecture & Reusability
+### 2.3 Attention Required Triage Widget (`UrgentItemsWidget.jsx`)
+- Surfaces the top items requiring restocking.
+- Displays SKU ID, warehouse location, available quantity, and safety threshold.
+- Features dual row actions:
+  - **Eye Icon (`👁️`):** Directly inspects the item in Screen C.
+  - **Pencil Icon (`✏️`):** Opens Screen D in edit mode.
 
-```text
-               InventoryProvider (State & Metrics)
-                        │
-       ┌────────────────┴────────────────┐
-       ▼                                 ▼
- Sidebar (Nav: A, B, C, D)         Header (Actions)
-       │                                 │
-       └────────────────┬────────────────┘
-                        ▼
-               DashboardScreen (Screen A)
-                        │
-   ┌────────────────────┼────────────────────┐
-   ▼                    ▼                    ▼
-StatCardsGrid     CategoryChart      UrgentItemsWidget
-   │                                         │
-MetricCard (x5)                       StatusBadge (Reusable)
-                                             │
-                             [Eye -> Screen C | Pencil -> Screen D]
-```
+### 2.4 Navigation & Actions
+- **Header Action:** Prominent `+ Add Item` CTA button.
+- **Catalog Shortcut:** Direct navigation link to Screen B (Inventory Catalog).
 
 ---
 
-## 5. Local Execution & Verification
-
-Run the local development server:
-```bash
-npm run dev
-```
-Open `http://localhost:5173` in your browser. All four screens are now clearly visible and accessible directly from the sidebar as well as contextual links.
+## 3. Responsive Behavior
+- **Desktop (1440px):** 5-column metric grid; 2-column analytics cards side-by-side.
+- **Tablet (768px):** 2×2 metric grid + full-width attention card; stacked analytics cards.
+- **Mobile (375px):** Touch-friendly cards, full-width `Total Items` header card, tap-to-inspect urgent rows with chevron indicators.
