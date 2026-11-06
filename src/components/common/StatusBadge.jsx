@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle2, AlertTriangle, XCircle, Clock } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, XCircle } from 'lucide-react';
 
 export default function StatusBadge({ status, size = 'md' }) {
   let config = {
@@ -16,7 +16,8 @@ export default function StatusBadge({ status, size = 'md' }) {
     };
   } else if (status === 'Out of Stock') {
     config = {
-      bg: 'bg-rose-50 text-rose-700 border-rose-200',
+      // Pale washed-out red (#FEE2E2) with high-contrast red text and border
+      bg: 'bg-[#FEE2E2] text-red-700 border-red-300',
       icon: XCircle,
       text: 'Out of Stock'
     };
@@ -27,7 +28,7 @@ export default function StatusBadge({ status, size = 'md' }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 font-medium rounded-full border ${config.bg} ${
+      className={`inline-flex items-center gap-1.5 font-semibold rounded-full border ${config.bg} ${
         isSmall ? 'px-2 py-0.5 text-xs' : 'px-2.5 py-1 text-xs'
       }`}
     >
@@ -36,4 +37,3 @@ export default function StatusBadge({ status, size = 'md' }) {
     </span>
   );
 }
-

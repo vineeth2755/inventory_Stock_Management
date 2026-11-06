@@ -72,18 +72,18 @@ export default function StatCardsGrid() {
         </div>
       </div>
 
-      {/* 4. Out of Stock (Bold Pure Red background + Red icon) */}
-      <div className="bg-red-50/60 rounded-2xl border border-red-200/90 p-4 sm:p-5 shadow-xs flex flex-col justify-between min-h-[136px] hover:shadow-md transition-all">
+      {/* 4. Out of Stock (Pale washed-out red #FEE2E2 background + Red icon) */}
+      <div className="bg-[#FEE2E2] rounded-2xl border border-red-300 p-4 sm:p-5 shadow-xs flex flex-col justify-between min-h-[136px] hover:shadow-md transition-all">
         <div className="flex items-start justify-between gap-2">
-          <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-red-700 leading-tight">
+          <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-red-800 leading-tight">
             Out of Stock
           </span>
-          <div className="w-9 h-9 rounded-xl bg-red-100/80 text-red-600 border border-red-200 flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-red-100 text-red-600 border border-red-200 flex items-center justify-center shrink-0">
             <XCircle className="w-4 h-4 sm:w-5 sm:h-5" />
           </div>
         </div>
         <div className="mt-3">
-          <div className="text-2xl sm:text-3xl font-black tracking-tight text-red-600 leading-none">
+          <div className="text-2xl sm:text-3xl font-black tracking-tight text-red-700 leading-none">
             {metrics.outOfStock}
           </div>
         </div>

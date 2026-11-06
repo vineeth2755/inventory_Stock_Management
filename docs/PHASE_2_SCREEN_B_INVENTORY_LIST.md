@@ -22,7 +22,10 @@ Every record displays the exact eight fields specified in the assessment brief:
 5. **Available Quantity:** Units on hand with unit of measure label.
 6. **Reorder Level:** Minimum safety stock threshold.
 7. **Last Updated:** ISO timestamp of the most recent stock movement or edit.
-8. **Status:** Accessible badge (`In Stock`, `Low Stock`, `Out of Stock`) coupling SVG iconography with text.
+8. **Status:** Accessible badge coupling SVG iconography with text and defined semantic backgrounds:
+   - **In Stock:** `bg-emerald-50 text-emerald-700 border-emerald-200`
+   - **Low Stock:** `bg-amber-50 text-amber-700 border-amber-200`
+   - **Out of Stock:** Pale washed-out red `bg-[#FEE2E2] text-red-700 border-red-300`
 
 ---
 
@@ -32,7 +35,7 @@ Every record displays the exact eight fields specified in the assessment brief:
 - **Text Search:** Real-time matching against Item ID or Item Name.
 - **Category Filter:** Dropdown populated from system categories.
 - **Location Filter:** Dropdown filtering by warehouse facility.
-- **Status Filter:** Dropdown filtering by stock status.
+- **Status Filter:** Dropdown filtering by stock status (`In Stock`, `Low Stock`, `Out of Stock`).
 - **Reset Action:** Single-click clear button restoring default catalog state.
 
 ### 3.2 Sorting & Pagination
