@@ -135,3 +135,4 @@ export default function AdjustStockModal({ isOpen, onClose, item }) {
     </div>
   );
 }
+

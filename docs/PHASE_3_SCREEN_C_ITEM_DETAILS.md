@@ -80,3 +80,4 @@ npm run dev
    - Click the **"Adjust Stock"** button. Add `10` units with a note (e.g. `Emergency restock`).
    - Click **Confirm Adjustment** and watch the stock balance and movement history update immediately in real time!
    - Notice the status badge dynamically flip (e.g. from Low Stock to In Stock if stock rises above reorder level).
+

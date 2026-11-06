@@ -62,3 +62,4 @@ export default function StockMovementHistory({ movements, unit = 'Units' }) {
     </div>
   );
 }
+
