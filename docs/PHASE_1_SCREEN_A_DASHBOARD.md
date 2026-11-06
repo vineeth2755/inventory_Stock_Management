@@ -15,12 +15,14 @@ Screen A provides warehouse operators and logistics managers with an instant hig
 ## 2. Component Specifications
 
 ### 2.1 Summary KPI Indicators (`StatCardsGrid.jsx`)
-Strictly adheres to the five indicators specified in the assessment brief:
-1. **Total Items:** Real-time count of total registered SKUs across all warehouse facilities.
-2. **In Stock:** Count of healthy items where available quantity exceeds safety reorder thresholds.
-3. **Low Stock:** Count of items running at or below safety reorder thresholds (`availableQty <= reorderLevel`).
-4. **Out of Stock:** Count of items with zero available units (`availableQty === 0`).
-5. **Items Requiring Attention:** Combined count of low stock and out-of-stock items requiring immediate restock action.
+Features a 5-column responsive grid styled with status-matched background gradients and iconography without distracting top borders:
+
+1. **Total Items:** Soft Indigo gradient (`from-white to-indigo-50/50`) displaying total SKU volume.
+2. **In Stock:** Soft Emerald Green gradient (`from-white to-emerald-50/60`) displaying healthy inventory count in green (`#047857`).
+3. **Low Stock:** Soft Amber gradient (`from-white to-amber-50/60`) displaying low inventory count in amber (`#B45309`).
+4. **Out of Stock:** Soft Red gradient (`from-white to-red-50/80`) displaying depleted stock count in pure red (`#DC2626`).
+5. **Items Requiring Attention:** High-emphasis alert card with pulse notification badge and an underlined interaction link:  
+   `Tap to view urgent items →` which routes directly to the catalog triage.
 
 ### 2.2 Visual Category Breakdown (`CategoryChart.jsx`)
 - Computes each category's volume share against the total catalog:
@@ -40,6 +42,7 @@ Strictly adheres to the five indicators specified in the assessment brief:
 ### 2.4 Navigation & Actions
 - **Header Action:** Prominent `+ Add Item` CTA button.
 - **Catalog Shortcut:** Direct navigation link to Screen B (Inventory Catalog).
+- **Browser History Integration:** Integrated with native `window.history.pushState` and `popstate` so browser Back (`←`) and Forward (`→`) buttons transition between screens naturally.
 
 ---
 
