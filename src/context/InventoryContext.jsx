@@ -9,10 +9,24 @@ export function InventoryProvider({ children }) {
   const [selectedItemId, setSelectedItemId] = useState('INV-1001');
   const [formMode, setFormMode] = useState('add'); // 'add' | 'edit'
 
-  // Browser History integration (Listen to popstate when user clicks Browser Back/Forward buttons)
+  // Read URL hash on initial mount (Hard Test Case 1: handles direct refresh / bookmarking)
   useEffect(() => {
-    // Set initial history state on first mount
-    window.history.replaceState({ screen: 'overview', itemId: 'INV-1001', mode: 'add' }, '');
+    const parseHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash.startsWith('details-')) {
+        const id = hash.replace('details-', '');
+        setCurrentScreen('details');
+        setSelectedItemId(id);
+      } else if (hash === 'list') {
+        setCurrentScreen('list');
+      } else if (hash === 'form') {
+        setCurrentScreen('form');
+      } else {
+        setCurrentScreen('overview');
+      }
+    };
+
+    parseHash();
 
     const handlePopState = (event) => {
       if (event.state && event.state.screen) {
@@ -20,8 +34,7 @@ export function InventoryProvider({ children }) {
         if (event.state.itemId) setSelectedItemId(event.state.itemId);
         if (event.state.mode) setFormMode(event.state.mode);
       } else {
-        // If there's no state, default to overview
-        setCurrentScreen('overview');
+        parseHash();
       }
     };
 
@@ -76,10 +89,11 @@ export function InventoryProvider({ children }) {
     setCurrentScreen(screen);
 
     // Push into real browser history so browser Back / Forward buttons work naturally
+    const hash = screen === 'details' ? `#details-${targetItemId}` : `#${screen}`;
     window.history.pushState(
       { screen, itemId: targetItemId, mode },
       '',
-      `#${screen}${targetItemId ? `-${targetItemId}` : ''}`
+      hash
     );
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
