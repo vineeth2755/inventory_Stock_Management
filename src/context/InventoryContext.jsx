@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useMemo } from 'react';
+import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
 import { INITIAL_INVENTORY, CATEGORIES, WAREHOUSES } from '../data/mockInventory';
 
 const InventoryContext = createContext();
@@ -9,13 +9,32 @@ export function InventoryProvider({ children }) {
   const [selectedItemId, setSelectedItemId] = useState('INV-1001');
   const [formMode, setFormMode] = useState('add'); // 'add' | 'edit'
 
+  // Browser History integration (Listen to popstate when user clicks Browser Back/Forward buttons)
+  useEffect(() => {
+    // Set initial history state on first mount
+    window.history.replaceState({ screen: 'overview', itemId: 'INV-1001', mode: 'add' }, '');
+
+    const handlePopState = (event) => {
+      if (event.state && event.state.screen) {
+        setCurrentScreen(event.state.screen);
+        if (event.state.itemId) setSelectedItemId(event.state.itemId);
+        if (event.state.mode) setFormMode(event.state.mode);
+      } else {
+        // If there's no state, default to overview
+        setCurrentScreen('overview');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // Computed summary metrics dynamically calculated from current items state
   const metrics = useMemo(() => {
     const totalItems = items.length;
     const inStock = items.filter(item => item.status === 'In Stock').length;
     const lowStock = items.filter(item => item.status === 'Low Stock').length;
     const outOfStock = items.filter(item => item.status === 'Out of Stock').length;
-    // Items requiring attention: low stock OR out of stock
     const requiringAttention = items.filter(item => item.status === 'Low Stock' || item.status === 'Out of Stock');
 
     // Category breakdown
@@ -49,11 +68,20 @@ export function InventoryProvider({ children }) {
     return items.find(item => item.id === selectedItemId) || items[0];
   }, [items, selectedItemId]);
 
-  // Navigation helpers
+  // Navigation helpers with Browser History pushState
   const navigateTo = (screen, itemId = null, mode = 'add') => {
+    const targetItemId = itemId || selectedItemId;
     if (itemId) setSelectedItemId(itemId);
     if (mode) setFormMode(mode);
     setCurrentScreen(screen);
+
+    // Push into real browser history so browser Back / Forward buttons work naturally
+    window.history.pushState(
+      { screen, itemId: targetItemId, mode },
+      '',
+      `#${screen}${targetItemId ? `-${targetItemId}` : ''}`
+    );
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -126,4 +154,3 @@ export function useInventory() {
   }
   return context;
 }
-
