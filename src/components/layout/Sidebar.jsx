@@ -1,28 +1,25 @@
 import React from 'react';
-import {
-  LayoutDashboard,
-  Package,
-  FileText,
-  PlusCircle,
-  Layers,
+import { 
+  LayoutDashboard, 
+  Package, 
+  PlusCircle, 
+  Layers, 
   X
 } from 'lucide-react';
 import { useInventory } from '../../context/InventoryContext';
 
 export default function Sidebar({ mobileOpen, setMobileOpen }) {
-  const { currentScreen, selectedItemId, navigateTo } = useInventory();
+  const { currentScreen, navigateTo } = useInventory();
 
-  // Clear 4-Screen Navigation Order matching the User Journey:
-  // Screen A -> Screen B -> Screen C -> Screen D
+  // Clean, realistic enterprise navigation items
   const navItems = [
     { id: 'overview', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'list', label: 'Inventory List', icon: Package },
-    { id: 'details', label: 'Item Details', icon: FileText, param: selectedItemId },
-    { id: 'form', label: 'Add / Edit Item', icon: PlusCircle, mode: 'add' }
+    { id: 'list', label: 'Inventory Catalog', icon: Package },
+    { id: 'form', label: 'Add New Item', icon: PlusCircle, mode: 'add' }
   ];
 
-  const handleNavClick = (id, mode, param) => {
-    navigateTo(id, param || null, mode || 'add');
+  const handleNavClick = (id, mode) => {
+    navigateTo(id, null, mode || 'add');
     if (setMobileOpen) setMobileOpen(false);
   };
 
@@ -30,7 +27,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
     <>
       {/* Mobile Backdrop */}
       {mobileOpen && (
-        <div
+        <div 
           className="fixed inset-0 bg-slate-900/60 z-40 lg:hidden backdrop-blur-xs transition-opacity"
           onClick={() => setMobileOpen(false)}
         />
@@ -38,8 +35,9 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-[#151D31] text-slate-300 flex flex-col justify-between transition-transform duration-200 ease-in-out lg:translate-x-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-[#151D31] text-slate-300 flex flex-col justify-between transition-transform duration-200 ease-in-out lg:translate-x-0 ${
+          mobileOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
       >
         {/* Brand / Logo Area */}
         <div>
@@ -63,22 +61,24 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
             </button>
           </div>
 
-          {/* Navigation Links in Clean A -> B -> C -> D Order */}
+          {/* Navigation Links */}
           <nav className="p-4 space-y-1">
             <div className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-              User Experiences
+              Core Operations
             </div>
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = currentScreen === item.id;
+              // If on details view, 'list' can be considered parent or active
+              const isActive = currentScreen === item.id || (item.id === 'list' && currentScreen === 'details');
               return (
                 <button
                   key={item.id}
-                  onClick={() => handleNavClick(item.id, item.mode, item.param)}
-                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-colors cursor-pointer ${isActive
+                  onClick={() => handleNavClick(item.id, item.mode)}
+                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
+                    isActive
                       ? 'bg-[#5145E5] text-white shadow-sm font-semibold'
                       : 'text-slate-300 hover:text-white hover:bg-slate-800/70'
-                    }`}
+                  }`}
                 >
                   <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
                   <span className="truncate">{item.label}</span>
