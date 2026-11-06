@@ -81,3 +81,4 @@ export default function InventoryMobileCards({ items }) {
     </div>
   );
 }
+

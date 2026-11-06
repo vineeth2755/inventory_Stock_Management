@@ -128,3 +128,4 @@ export default function InventoryTable({ items, sortConfig, onSort }) {
     </div>
   );
 }
+

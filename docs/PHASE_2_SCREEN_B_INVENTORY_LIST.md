@@ -81,3 +81,4 @@ npm run dev
 4. Test filtering by Category (`Consumables`), Location (`Warehouse A`), or Status (`Low Stock`).
 5. Click on column headers (`Available Qty`) to toggle ascending/descending sort.
 6. Resize your browser to 375px mobile width to verify the responsive card layout.
+
