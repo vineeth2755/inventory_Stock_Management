@@ -93,3 +93,4 @@ Consistent 4px/8px incremental scale (`4px`, `8px`, `12px`, `16px`, `24px`, `32p
 | **Desktop** | **1440px** | Persistent Dark Navy sidebar (`w-64`). 5-column metric grid. 2-column analytics cards. 8-column high-density data table with sorting and pagination. |
 | **Tablet** | **768px** | Sidebar collapses into an accessible sliding drawer. Metric cards wrap to 2-column grid. Data table remains scrollable and legible. |
 | **Mobile** | **375px** | Single-column stacked cards. Hamburger menu trigger in top header. Wide tables automatically transform into touch-friendly stacked inventory cards. Minimum 44px tap targets for mobile usability. |
+

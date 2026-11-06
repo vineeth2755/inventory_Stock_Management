@@ -3,15 +3,15 @@ import {
   LayoutDashboard, 
   Package, 
   PlusCircle, 
-  Layers, 
   X
 } from 'lucide-react';
 import { useInventory } from '../../context/InventoryContext';
+import logoImg from '../../assets/logo.png';
 
 export default function Sidebar({ mobileOpen, setMobileOpen }) {
   const { currentScreen, navigateTo } = useInventory();
 
-  // Clean, realistic enterprise navigation items
+  // Enterprise navigation items
   const navItems = [
     { id: 'overview', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'list', label: 'Inventory Catalog', icon: Package },
@@ -41,15 +41,13 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
       >
         {/* Brand / Logo Area */}
         <div>
-          <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-[#5145E5] flex items-center justify-center text-white font-bold shadow-md shadow-indigo-900/40">
-                <Layers className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <h1 className="text-base font-bold text-white tracking-tight">StockMatrix</h1>
-                <p className="text-[10px] text-slate-400 uppercase tracking-widest font-medium">Enterprise Inventory</p>
-              </div>
+          <div className="h-20 flex items-center justify-between px-4 border-b border-slate-800 bg-[#111827]/40">
+            <div className="flex items-center gap-2 overflow-hidden">
+              <img 
+                src={logoImg} 
+                alt="InventoryPro Logo" 
+                className="h-12 w-auto max-w-[200px] object-contain rounded"
+              />
             </div>
             {/* Close Button on Mobile */}
             <button
@@ -68,7 +66,6 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
             </div>
             {navItems.map((item) => {
               const Icon = item.icon;
-              // If on details view, 'list' can be considered parent or active
               const isActive = currentScreen === item.id || (item.id === 'list' && currentScreen === 'details');
               return (
                 <button
@@ -90,13 +87,13 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
 
         {/* User Profile Footer */}
         <div className="p-4 border-t border-slate-800">
-          <div className="flex items-center gap-3 p-2 rounded-lg bg-slate-900/40">
-            <div className="w-9 h-9 rounded-full bg-indigo-950 border border-indigo-500/40 flex items-center justify-center text-sm font-bold text-indigo-300">
-              VK
+          <div className="flex items-center gap-3 p-2.5 rounded-lg bg-slate-900/60 border border-slate-800/80">
+            <div className="w-9 h-9 rounded-full bg-[#5145E5] border border-indigo-400/30 flex items-center justify-center text-xs font-bold text-white shadow-xs">
+              VG
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-white truncate">Vikram Kumar</p>
-              <p className="text-[11px] text-slate-400 truncate">Inventory Lead</p>
+              <p className="text-xs font-semibold text-white truncate">Vineeth Guntreddi</p>
+              <p className="text-[11px] text-slate-400 truncate">Inventory Lead & UX Engineer</p>
             </div>
           </div>
         </div>
