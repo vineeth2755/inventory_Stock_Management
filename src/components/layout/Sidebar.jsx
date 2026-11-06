@@ -6,7 +6,7 @@ import {
   X
 } from 'lucide-react';
 import { useInventory } from '../../context/InventoryContext';
-import logoImg from '../../assets/logo.png';
+import emblemImg from '../../assets/logo-emblem.png';
 
 export default function Sidebar({ mobileOpen, setMobileOpen }) {
   const { currentScreen, navigateTo } = useInventory();
@@ -41,13 +41,24 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
       >
         {/* Brand / Logo Area */}
         <div>
-          <div className="h-20 flex items-center justify-between px-4 border-b border-slate-800 bg-[#111827]/40">
-            <div className="flex items-center gap-2 overflow-hidden">
+          <div className="h-18 flex items-center justify-between px-5 border-b border-slate-800">
+            <div className="flex items-center gap-3">
+              {/* Cropped Clean Hexagonal Emblem */}
               <img 
-                src={logoImg} 
-                alt="InventoryPro Logo" 
-                className="h-12 w-auto max-w-[200px] object-contain rounded"
+                src={emblemImg} 
+                alt="InventoryPro Emblem" 
+                className="w-10 h-10 object-contain rounded-lg drop-shadow-md"
               />
+              {/* Matching Brand Typography from Logo */}
+              <div>
+                <div className="flex items-baseline font-extrabold text-lg tracking-tight leading-none">
+                  <span className="text-white">Inventory</span>
+                  <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">Pro</span>
+                </div>
+                <p className="text-[9px] text-slate-400 uppercase tracking-widest font-semibold mt-1">
+                  Inventory System
+                </p>
+              </div>
             </div>
             {/* Close Button on Mobile */}
             <button
@@ -93,7 +104,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-white truncate">Vineeth Guntreddi</p>
-              <p className="text-[11px] text-slate-400 truncate">Inventory Lead & UX Engineer</p>
+              <p className="text-[11px] text-slate-400 truncate">Inventory Lead</p>
             </div>
           </div>
         </div>
