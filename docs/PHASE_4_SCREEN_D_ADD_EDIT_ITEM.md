@@ -87,3 +87,4 @@ npm run dev
    - It redirects you automatically to **Screen C (Item Details)**.
    - Notice the item status automatically computes to **"Low Stock"** because `5 <= 10`!
    - Navigate back to **Screen A (Dashboard)** and notice the Total Items and Low Stock KPI counts have incremented!
+
