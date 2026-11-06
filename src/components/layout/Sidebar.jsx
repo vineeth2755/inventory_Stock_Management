@@ -2,26 +2,27 @@ import React from 'react';
 import { 
   LayoutDashboard, 
   Package, 
+  FileText,
   PlusCircle, 
   Layers, 
-  BarChart3, 
-  Settings, 
-  LogOut,
   X
 } from 'lucide-react';
 import { useInventory } from '../../context/InventoryContext';
 
 export default function Sidebar({ mobileOpen, setMobileOpen }) {
-  const { currentScreen, navigateTo } = useInventory();
+  const { currentScreen, selectedItemId, navigateTo } = useInventory();
 
+  // Clear 4-Screen Navigation Order matching the User Journey:
+  // Screen A -> Screen B -> Screen C -> Screen D
   const navItems = [
-    { id: 'overview', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'list', label: 'Inventory List', icon: Package },
-    { id: 'form', label: 'Add New Item', icon: PlusCircle, mode: 'add' }
+    { id: 'overview', label: 'Screen A: Dashboard', icon: LayoutDashboard },
+    { id: 'list', label: 'Screen B: Inventory List', icon: Package },
+    { id: 'details', label: 'Screen C: Item Details', icon: FileText, param: selectedItemId },
+    { id: 'form', label: 'Screen D: Add / Edit Item', icon: PlusCircle, mode: 'add' }
   ];
 
-  const handleNavClick = (id, mode) => {
-    navigateTo(id, null, mode || 'add');
+  const handleNavClick = (id, mode, param) => {
+    navigateTo(id, param || null, mode || 'add');
     if (setMobileOpen) setMobileOpen(false);
   };
 
@@ -63,10 +64,10 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
             </button>
           </div>
 
-          {/* Navigation Links */}
+          {/* Navigation Links in Clean A -> B -> C -> D Order */}
           <nav className="p-4 space-y-1">
             <div className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-              Core Operations
+              User Experiences
             </div>
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -74,15 +75,15 @@ export default function Sidebar({ mobileOpen, setMobileOpen }) {
               return (
                 <button
                   key={item.id}
-                  onClick={() => handleNavClick(item.id, item.mode)}
-                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  onClick={() => handleNavClick(item.id, item.mode, item.param)}
+                  className={`w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
                     isActive
                       ? 'bg-[#5145E5] text-white shadow-sm font-semibold'
                       : 'text-slate-300 hover:text-white hover:bg-slate-800/70'
                   }`}
                 >
-                  <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
-                  <span>{item.label}</span>
+                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? 'text-white' : 'text-slate-400'}`} />
+                  <span className="truncate">{item.label}</span>
                 </button>
               );
             })}

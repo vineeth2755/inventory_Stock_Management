@@ -257,3 +257,4 @@ export const WAREHOUSES = [
   "Warehouse B",
   "Cold Storage"
 ];
+
