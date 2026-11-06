@@ -1,18 +1,24 @@
-# StockMatrix – Enterprise Inventory Management Web Application
+# StockMatrix (InventoryPro) – Enterprise Inventory Management
 
-A responsive, high-density React web application designed for operations staff, warehouse coordinators, and supply chain managers to maintain accurate inventory, monitor stock health, audit transactions, and adjust stock levels across multiple warehouse facilities.
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Vercel-5145E5?style=for-the-badge&logo=vercel&logoColor=white)](https://inventory-stock-management-sepia.vercel.app/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-151D31?style=for-the-badge&logo=github&logoColor=white)](https://github.com/vineeth2755/inventory_Stock_Management.git)
+[![Status](https://img.shields.io/badge/Build-Passing-10B981?style=for-the-badge)](https://inventory-stock-management-sepia.vercel.app/)
 
-Built as part of the **UX/UI Engineer Assessment** following the 4-layer design architecture and the specified enterprise visual theme.
+> **Live Application URL:** [https://inventory-stock-management-sepia.vercel.app/](https://inventory-stock-management-sepia.vercel.app/)
+
+A responsive, high-density React web application designed for operations staff, warehouse coordinators, and logistics leads to maintain accurate inventory, monitor stock health, audit transactions, and adjust stock levels across multiple warehouse facilities.
+
+Built as part of the **UX/UI Engineer Assessment** following modern component architecture and the specified enterprise visual theme.
 
 ---
 
 ## 1. Key Features & Screens
 
 ### Screen A — Inventory Overview (Morning Snapshot)
-- **5 Dynamic KPI Metrics:** Total Items, In Stock, Low Stock, Out of Stock, and Items Requiring Attention.
+- **5 Dynamic KPI Metrics:** Total Items, In Stock, Low Stock, Out of Stock (bold red), and Items Requiring Attention (with underlined triage shortcut).
 - **Visual Stock Health Distribution:** Multi-segment progress bars showing distribution across categories (`Consumables`, `Components`, `Electrical`, `Machinery & Tools`, `Safety & PPE`).
-- **Urgent Triage Widget:** Instant table listing items at or below safety reorder levels with direct 1-click inspection and edit actions.
-- **Prominent Header CTA:** Quick-action `+ Add New Item` button.
+- **Urgent Triage Widget:** Instant list of items at or below safety reorder levels with direct 1-click inspection and edit actions.
+- **Prominent Header CTA:** Quick-action `+ Add Item` button.
 
 ### Screen B — Inventory Catalog (Search & Triage)
 - **8 Required Data Columns:** `Item ID`, `Item Name`, `Category`, `Location`, `Available Qty`, `Reorder Level`, `Last Updated`, `Status`.
@@ -42,6 +48,7 @@ Built as part of the **UX/UI Engineer Assessment** following the 4-layer design 
 - **Styling Engine:** Tailwind CSS v4 (`@tailwindcss/vite`) with custom `@theme` tokens
 - **Iconography:** Lucide React (Accessible, lightweight SVG icons)
 - **State Management:** React Context (`InventoryContext.jsx`) with dynamic `useMemo` metric calculations
+- **Routing & History:** Native browser history (`window.history.pushState` & `popstate`) supporting Back (`←`) / Forward (`→`) and direct URL hash deep linking (`#list`, `#details-INV-1001`)
 - **Design Tokens:** Strict custom palette (`#5145E5` Indigo, `#151D31` Dark Navy sidebar, `#F5F7FB` app canvas)
 
 ---
@@ -68,7 +75,7 @@ The application is engineered and tested for the three target viewports:
 1. Clone the repository:
    ```bash
    git clone https://github.com/vineeth2755/inventory_Stock_Management.git
-   cd inventory_Stock_Management
+   cd inventory-management
    ```
 2. Install dependencies:
    ```bash
@@ -84,7 +91,7 @@ The application is engineered and tested for the three target viewports:
    ```
 
 ### Production Build
-To test the production build:
+To test the production build locally:
 ```bash
 npm run build
 npm run preview
@@ -92,12 +99,14 @@ npm run preview
 
 ---
 
-## 5. Submission Documentation Links
+## 5. Assessment Deliverables & Documentation Links
 
-- [Design System Reference](file:///C:/Users/rn018/Desktop/inventory-management/docs/DESIGN_SYSTEM.md)
-- [AI Usage Documentation](file:///C:/Users/rn018/Desktop/inventory-management/AI_USAGE.md)
-- [Phase 0 Setup Documentation](file:///C:/Users/rn018/Desktop/inventory-management/docs/PHASE_0_SETUP.md)
-- [Phase 1 (Screen A) Documentation](file:///C:/Users/rn018/Desktop/inventory-management/docs/PHASE_1_SCREEN_A_DASHBOARD.md)
-- [Phase 2 (Screen B) Documentation](file:///C:/Users/rn018/Desktop/inventory-management/docs/PHASE_2_SCREEN_B_INVENTORY_LIST.md)
-- [Phase 3 (Screen C) Documentation](file:///C:/Users/rn018/Desktop/inventory-management/docs/PHASE_3_SCREEN_C_ITEM_DETAILS.md)
-- [Phase 4 (Screen D) Documentation](file:///C:/Users/rn018/Desktop/inventory-management/docs/PHASE_4_SCREEN_D_ADD_EDIT_ITEM.md)
+- **Live Application:** [https://inventory-stock-management-sepia.vercel.app/](https://inventory-stock-management-sepia.vercel.app/)
+- **Design System Reference:** [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)
+- **AI Usage Documentation:** [AI_USAGE.md](AI_USAGE.md)
+- **Responsive Specification:** [docs/RESPONSIVE_SPECIFICATION.md](docs/RESPONSIVE_SPECIFICATION.md)
+- **Phase 0 Setup Documentation:** [docs/PHASE_0_SETUP.md](docs/PHASE_0_SETUP.md)
+- **Phase 1 (Screen A) Documentation:** [docs/PHASE_1_SCREEN_A_DASHBOARD.md](docs/PHASE_1_SCREEN_A_DASHBOARD.md)
+- **Phase 2 (Screen B) Documentation:** [docs/PHASE_2_SCREEN_B_INVENTORY_LIST.md](docs/PHASE_2_SCREEN_B_INVENTORY_LIST.md)
+- **Phase 3 (Screen C) Documentation:** [docs/PHASE_3_SCREEN_C_ITEM_DETAILS.md](docs/PHASE_3_SCREEN_C_ITEM_DETAILS.md)
+- **Phase 4 (Screen D) Documentation:** [docs/PHASE_4_SCREEN_D_ADD_EDIT_ITEM.md](docs/PHASE_4_SCREEN_D_ADD_EDIT_ITEM.md)
