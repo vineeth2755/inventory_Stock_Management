@@ -3,6 +3,7 @@ import { InventoryProvider, useInventory } from './context/InventoryContext';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
 import DashboardScreen from './components/dashboard/DashboardScreen';
+import InventoryListScreen from './components/inventory/InventoryListScreen';
 
 function AppContent() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -21,12 +22,7 @@ function AppContent() {
         {/* Dynamic Screen View */}
         <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
           {currentScreen === 'overview' && <DashboardScreen />}
-          {currentScreen === 'list' && (
-            <div className="bg-white rounded-xl border border-slate-200 p-8 text-center text-slate-500">
-              <h2 className="text-lg font-bold text-slate-800">Inventory List View</h2>
-              <p className="text-sm mt-1">Screen B will be built in Step 2.</p>
-            </div>
-          )}
+          {currentScreen === 'list' && <InventoryListScreen />}
           {currentScreen === 'details' && (
             <div className="bg-white rounded-xl border border-slate-200 p-8 text-center text-slate-500">
               <h2 className="text-lg font-bold text-slate-800">Item Details View</h2>
