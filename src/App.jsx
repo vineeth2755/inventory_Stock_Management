@@ -5,6 +5,7 @@ import Header from './components/layout/Header';
 import DashboardScreen from './components/dashboard/DashboardScreen';
 import InventoryListScreen from './components/inventory/InventoryListScreen';
 import ItemDetailsScreen from './components/details/ItemDetailsScreen';
+import ItemFormScreen from './components/form/ItemFormScreen';
 
 function AppContent() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -25,12 +26,7 @@ function AppContent() {
           {currentScreen === 'overview' && <DashboardScreen />}
           {currentScreen === 'list' && <InventoryListScreen />}
           {currentScreen === 'details' && <ItemDetailsScreen />}
-          {currentScreen === 'form' && (
-            <div className="bg-white rounded-xl border border-slate-200 p-8 text-center text-slate-500">
-              <h2 className="text-lg font-bold text-slate-800">Add / Edit Item Form</h2>
-              <p className="text-sm mt-1">Screen D will be built in Step 4.</p>
-            </div>
-          )}
+          {currentScreen === 'form' && <ItemFormScreen />}
         </main>
       </div>
     </div>
